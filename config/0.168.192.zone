@@ -7,5 +7,5 @@ $TTL    3600
             86400   ; Minimum TTL
             )
     IN  NS  ns.
-2   IN  PTR     ns.local.workspace.com.
-2   IN  PTR     www.local.workspace.com.
+3   IN  PTR     ns.local.workspace.com.
+3   IN  PTR     www.local.workspace.com.

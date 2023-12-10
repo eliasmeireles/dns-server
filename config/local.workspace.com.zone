@@ -7,5 +7,5 @@ $TTL    3600
             86400   ; Minimum TTL
             )
     IN  NS  ns.local.workspace.com.
-ns  IN  A   192.168.0.2
-www IN  A   192.168.0.2
+ns  IN  A   192.168.205.3
+www IN  A   192.168.205.3
