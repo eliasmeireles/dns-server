@@ -1,6 +1,21 @@
 version: "3.7"
 
 services:
+  web-app:
+    image: web-app
+    build:
+      context: .
+      dockerfile: ./DockerfileWebapp
+    container_name: web-app
+    restart: always
+    networks:
+      web-app-network:
+        ipv4_address: 172.31.0.2
+      dns-server-network:
+        ipv4_address: 172.30.0.3
+    ports:
+      - "9878:80"
+
   dns-server:
     image: dns-server
     build:
@@ -8,3 +23,20 @@ services:
       dockerfile: ./Dockerfile
     container_name: dns-server
     restart: always
+    networks:
+      dns-server-network:
+        ipv4_address: 172.30.0.2
+      web-app-network:
+        ipv4_address: 172.31.0.3
+
+networks:
+  dns-server-network:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.30.0.0/16
+  web-app-network:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.31.0.0/16

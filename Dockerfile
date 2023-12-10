@@ -1,13 +1,16 @@
 FROM alpine:latest
 
+WORKDIR /etc/bind
+
 RUN apk --no-cache add bind
+COPY config/named.conf.local /etc/bind/named.conf
+COPY config/db.local-network.app /etc/bind/db.local-network.app
+COPY ./config/db.172 /etc/bind/db.172
 
-COPY ./config/named.conf /etc/bind/named.conf
-COPY ./config/local.workspace.com.zone /etc/bind/local.workspace.com.zone
-COPY ./config/0.168.192.zone /etc/bind/0.168.192.zone
+COPY ./config/entrypoint.sh /entrypoint.sh
 
-# Add this step
-RUN chown -R named:named /etc/bind && chmod -R 755 /etc/bind
+RUN chown -R named:named /etc/bind && chmod -R 755 /etc/bind && chmod +x /entrypoint.sh
+ENTRYPOINT [ "/entrypoint.sh" ]
 
 EXPOSE 53/udp 53/tcp
 
