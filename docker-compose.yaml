@@ -8,5 +8,3 @@ services:
       dockerfile: ./Dockerfile
     container_name: dns-server
     restart: always
-    ports:
-      - "53:53"
